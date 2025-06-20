@@ -282,10 +282,7 @@ export const GameBoard = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
-            <span className="bg-white/73 text-transparent bg-clip-text">
-              Memory Dash
-            </span>{" "}
-            🧠
+            <span className="text-white/80">Memory Dash</span> 🧠
           </h1>
           <p className="text-xl text-yellow-400 max-w-2xl mx-auto">
             Memorize the sequence and click the numbers in order. Test your
