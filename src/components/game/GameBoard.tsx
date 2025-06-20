@@ -27,7 +27,7 @@ interface GameStats {
   startTime: number;
 }
 
-type GameState = "waiting" | "showing" | "playing" | "gameOver";
+type GameState = "waiting" | "playing" | "gameOver";
 
 export const GameBoard = () => {
   const [gameState, setGameState] = useState<GameState>("waiting");
@@ -40,14 +40,13 @@ export const GameBoard = () => {
     timeElapsed: 0,
     startTime: 0,
   });
-  const [sequenceTimeLeft, setSequenceTimeLeft] = useState(0);
+
   const [highScore, setHighScore] = useState(() => {
     const saved = localStorage.getItem("memory-dash-high-score");
     return saved ? parseInt(saved) : 0;
   });
 
   const gameTimerRef = useRef<NodeJS.Timeout>();
-  const sequenceTimerRef = useRef<NodeJS.Timeout>();
 
   const config = difficultyConfigs[difficulty];
 
@@ -100,26 +99,10 @@ export const GameBoard = () => {
       timeElapsed: 0,
       startTime: Date.now(),
     });
-    setGameState("showing");
-    setSequenceTimeLeft(config.showTime);
-
-    // Show sequence timer
-    sequenceTimerRef.current = setInterval(() => {
-      setSequenceTimeLeft((prev) => {
-        if (prev <= 100) {
-          startPlaying();
-          return 0;
-        }
-        return prev - 100;
-      });
-    }, 100);
+    startPlaying();
   };
 
   const startPlaying = () => {
-    if (sequenceTimerRef.current) {
-      clearInterval(sequenceTimerRef.current);
-    }
-
     setGameState("playing");
     setStats((prev) => ({ ...prev, startTime: Date.now() }));
 
@@ -164,7 +147,7 @@ export const GameBoard = () => {
               // Hide all numbers after first click
               return {
                 ...cell,
-                isRevealed: expectedNumber > 1 ? false : cell.isRevealed,
+                isRevealed: false,
                 isNext: false,
               };
             }),
@@ -271,14 +254,12 @@ export const GameBoard = () => {
       timeElapsed: 0,
       startTime: 0,
     });
-    setSequenceTimeLeft(0);
   };
 
   // Cleanup timers
   useEffect(() => {
     return () => {
       if (gameTimerRef.current) clearInterval(gameTimerRef.current);
-      if (sequenceTimerRef.current) clearInterval(sequenceTimerRef.current);
     };
   }, []);
 
@@ -319,8 +300,8 @@ export const GameBoard = () => {
             timeElapsed={stats.timeElapsed}
             level={difficulty}
             isPlaying={gameState === "playing"}
-            isShowingSequence={gameState === "showing"}
-            sequenceTimeLeft={sequenceTimeLeft}
+            isShowingSequence={false}
+            sequenceTimeLeft={0}
           />
         </div>
 
@@ -345,7 +326,7 @@ export const GameBoard = () => {
             </div>
           )}
 
-          {(gameState === "showing" || gameState === "playing") && (
+          {gameState === "playing" && (
             <div className="bg-game-bg/20 backdrop-blur-sm border border-game-accent/30 rounded-xl p-8">
               <div style={gridStyle}>
                 {grid.map((cell) => (
@@ -362,15 +343,6 @@ export const GameBoard = () => {
                   />
                 ))}
               </div>
-
-              {gameState === "showing" && (
-                <div className="text-center mt-6">
-                  <div className="text-game-warning text-lg font-bold">
-                    📝 Memorize the sequence! Game starts in{" "}
-                    {Math.ceil(sequenceTimeLeft / 1000)}s
-                  </div>
-                </div>
-              )}
 
               {gameState === "playing" && (
                 <div className="text-center mt-6">
