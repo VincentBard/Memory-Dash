@@ -3,26 +3,29 @@ import { cn } from "@/lib/utils";
 interface ScoreBoardProps {
   score: number;
   highScore: number;
-  hits: number;
-  misses: number;
-  averageReactionTime: number;
+  currentNumber: number;
+  totalNumbers: number;
+  timeElapsed: number;
   level: string;
-  timeLeft?: number;
   isPlaying: boolean;
+  isShowingSequence?: boolean;
+  sequenceTimeLeft?: number;
 }
 
 export const ScoreBoard = ({
   score,
   highScore,
-  hits,
-  misses,
-  averageReactionTime,
+  currentNumber,
+  totalNumbers,
+  timeElapsed,
   level,
-  timeLeft,
   isPlaying,
+  isShowingSequence = false,
+  sequenceTimeLeft,
 }: ScoreBoardProps) => {
-  const accuracy =
-    hits + misses > 0 ? Math.round((hits / (hits + misses)) * 100) : 0;
+  const progress =
+    totalNumbers > 0 ? Math.round((currentNumber / totalNumbers) * 100) : 0;
+  const formatTime = (ms: number) => (ms / 1000).toFixed(1);
 
   return (
     <div className="bg-game-bg/80 backdrop-blur-sm border border-game-accent/30 rounded-xl p-6">
@@ -42,29 +45,37 @@ export const ScoreBoard = ({
         </div>
 
         <div className="space-y-1">
-          <div className="text-2xl font-bold text-white">{accuracy}%</div>
-          <div className="text-sm text-game-primary font-medium">ACCURACY</div>
+          <div className="text-2xl font-bold text-white">
+            {currentNumber}/{totalNumbers}
+          </div>
+          <div className="text-sm text-game-primary font-medium">PROGRESS</div>
         </div>
 
         <div className="space-y-1">
           <div className="text-2xl font-bold text-white">
-            {averageReactionTime > 0 ? `${averageReactionTime}ms` : "-"}
+            {formatTime(timeElapsed)}s
           </div>
-          <div className="text-sm text-game-primary font-medium">AVG TIME</div>
+          <div className="text-sm text-game-primary font-medium">TIME</div>
         </div>
       </div>
 
+      {/* Progress Bar */}
+      {isPlaying && totalNumbers > 0 && (
+        <div className="mt-4">
+          <div className="w-full bg-game-bg/40 rounded-full h-2">
+            <div
+              className="bg-gradient-to-r from-game-accent to-game-primary h-2 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <div className="text-center text-xs text-game-primary/80 mt-1">
+            {progress}% Complete
+          </div>
+        </div>
+      )}
+
       <div className="mt-4 pt-4 border-t border-game-accent/20">
         <div className="flex justify-between items-center text-sm">
-          <div className="flex space-x-6">
-            <span className="text-game-success">
-              <span className="font-bold">{hits}</span> Hits
-            </span>
-            <span className="text-game-danger">
-              <span className="font-bold">{misses}</span> Misses
-            </span>
-          </div>
-
           <div className="flex items-center space-x-4">
             <span
               className={cn(
@@ -72,23 +83,31 @@ export const ScoreBoard = ({
                 {
                   "bg-green-500/20 text-green-400": level === "easy",
                   "bg-yellow-500/20 text-yellow-400": level === "medium",
-                  "bg-red-500/20 text-red-400": level === "hard",
+                  "bg-orange-500/20 text-orange-400": level === "hard",
+                  "bg-red-500/20 text-red-400": level === "expert",
                 },
               )}
             >
               {level}
             </span>
 
-            {isPlaying && timeLeft !== undefined && (
-              <span
-                className={cn("font-mono text-lg font-bold", {
-                  "text-game-accent": timeLeft > 10,
-                  "text-game-warning": timeLeft <= 10 && timeLeft > 5,
-                  "text-game-danger animate-pulse": timeLeft <= 5,
-                })}
-              >
-                {timeLeft}s
+            {isShowingSequence && sequenceTimeLeft !== undefined && (
+              <span className="text-game-warning font-mono text-lg font-bold animate-pulse">
+                Memorize: {Math.ceil(sequenceTimeLeft / 1000)}s
               </span>
+            )}
+          </div>
+
+          <div className="text-right">
+            {isPlaying && !isShowingSequence && (
+              <div className="text-game-accent font-medium">
+                Next: {currentNumber + 1}
+              </div>
+            )}
+            {isShowingSequence && (
+              <div className="text-game-warning font-medium">
+                📝 Study the sequence!
+              </div>
             )}
           </div>
         </div>

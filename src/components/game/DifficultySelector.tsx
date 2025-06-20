@@ -1,14 +1,13 @@
 import { cn } from "@/lib/utils";
 
-export type Difficulty = "easy" | "medium" | "hard";
+export type Difficulty = "easy" | "medium" | "hard" | "expert";
 
 interface DifficultyConfig {
   name: string;
   description: string;
-  targetDuration: number;
-  spawnRate: number;
-  targetSize: number;
-  maxConcurrentTargets: number;
+  sequenceLength: number;
+  gridSize: number;
+  showTime: number; // milliseconds to show sequence
   color: string;
   icon: string;
 }
@@ -16,31 +15,37 @@ interface DifficultyConfig {
 export const difficultyConfigs: Record<Difficulty, DifficultyConfig> = {
   easy: {
     name: "Easy",
-    description: "Large targets, slow pace",
-    targetDuration: 2500,
-    spawnRate: 1500,
-    targetSize: 80,
-    maxConcurrentTargets: 2,
+    description: "4 numbers, small grid",
+    sequenceLength: 4,
+    gridSize: 3, // 3x3 grid
+    showTime: 3000,
     color: "green",
     icon: "🟢",
   },
   medium: {
     name: "Medium",
-    description: "Medium targets, moderate pace",
-    targetDuration: 1800,
-    spawnRate: 1200,
-    targetSize: 60,
-    maxConcurrentTargets: 3,
+    description: "8 numbers, medium grid",
+    sequenceLength: 8,
+    gridSize: 4, // 4x4 grid
+    showTime: 4000,
     color: "yellow",
     icon: "🟡",
   },
   hard: {
     name: "Hard",
-    description: "Small targets, fast pace",
-    targetDuration: 1200,
-    spawnRate: 800,
-    targetSize: 45,
-    maxConcurrentTargets: 4,
+    description: "12 numbers, large grid",
+    sequenceLength: 12,
+    gridSize: 5, // 5x5 grid
+    showTime: 5000,
+    color: "orange",
+    icon: "🟠",
+  },
+  expert: {
+    name: "Expert",
+    description: "20 numbers, huge grid",
+    sequenceLength: 20,
+    gridSize: 6, // 6x6 grid
+    showTime: 6000,
     color: "red",
     icon: "🔴",
   },
@@ -63,7 +68,7 @@ export const DifficultySelector = ({
         Choose Difficulty
       </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {(
           Object.entries(difficultyConfigs) as [Difficulty, DifficultyConfig][]
         ).map(([key, config]) => (
@@ -85,6 +90,11 @@ export const DifficultySelector = ({
                 "border-yellow-400/30 bg-yellow-500/10 text-yellow-200 hover:border-yellow-400/60":
                   config.color === "yellow" && selectedDifficulty !== key,
 
+                "border-orange-400 bg-orange-500/20 text-orange-100":
+                  config.color === "orange" && selectedDifficulty === key,
+                "border-orange-400/30 bg-orange-500/10 text-orange-200 hover:border-orange-400/60":
+                  config.color === "orange" && selectedDifficulty !== key,
+
                 "border-red-400 bg-red-500/20 text-red-100":
                   config.color === "red" && selectedDifficulty === key,
                 "border-red-400/30 bg-red-500/10 text-red-200 hover:border-red-400/60":
@@ -101,9 +111,11 @@ export const DifficultySelector = ({
               <div className="text-sm opacity-80">{config.description}</div>
 
               <div className="text-xs space-y-1 mt-4 pt-3 border-t border-current/20">
-                <div>Target size: {config.targetSize}px</div>
-                <div>Speed: {config.spawnRate}ms</div>
-                <div>Max targets: {config.maxConcurrentTargets}</div>
+                <div>Sequence: {config.sequenceLength} numbers</div>
+                <div>
+                  Grid: {config.gridSize}×{config.gridSize}
+                </div>
+                <div>Show time: {config.showTime / 1000}s</div>
               </div>
             </div>
           </button>
