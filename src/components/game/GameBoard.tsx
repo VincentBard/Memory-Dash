@@ -284,7 +284,7 @@ export const GameBoard = () => {
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
             <span className="text-white/80">Memory Dash</span> 🧠
           </h1>
-          <p className="text-xl text-yellow-400 max-w-2xl mx-auto">
+          <p className="text-xl max-w-2xl mx-auto" style={{ color: "#00feae" }}>
             Memorize the sequence and click the numbers in order. Test your
             memory and speed!
           </p>
