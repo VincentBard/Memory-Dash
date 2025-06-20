@@ -298,11 +298,10 @@ export const GameBoard = () => {
           <ScoreBoard
             score={stats.score}
             highScore={highScore}
-            currentNumber={
-              stats.currentNumber > stats.totalNumbers
-                ? stats.totalNumbers
-                : stats.currentNumber - 1
-            }
+            currentNumber={Math.min(
+              stats.currentNumber - 1,
+              stats.totalNumbers,
+            )}
             totalNumbers={stats.totalNumbers}
             timeElapsed={stats.timeElapsed}
             level={difficulty}
