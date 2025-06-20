@@ -39,6 +39,15 @@
 
     --radius: 0.5rem;
 
+    --game-primary: 280 100% 70%;
+    --game-secondary: 260 100% 60%;
+    --game-accent: 160 100% 50%;
+    --game-success: 120 100% 40%;
+    --game-warning: 45 100% 60%;
+    --game-danger: 0 100% 60%;
+    --game-target: 30 100% 50%;
+    --game-bg: 270 30% 8%;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -84,6 +93,16 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    --game-primary: 280 100% 80%;
+    --game-secondary: 260 100% 70%;
+    --game-accent: 160 100% 60%;
+    --game-success: 120 100% 50%;
+    --game-warning: 45 100% 70%;
+    --game-danger: 0 100% 70%;
+    --game-target: 30 100% 60%;
+    --game-bg: 270 50% 5%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
