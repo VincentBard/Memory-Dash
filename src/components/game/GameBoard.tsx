@@ -123,13 +123,13 @@ export const GameBoard = () => {
     setGameState("playing");
     setStats((prev) => ({ ...prev, startTime: Date.now() }));
 
-    // Hide numbers and make clickable
+    // Make clickable but keep numbers visible until first click
     setGrid((prev) =>
       prev.map((cell) => ({
         ...cell,
-        isRevealed: false,
+        isRevealed: true,
         isClickable: true,
-        isNext: cell.number === 1,
+        isNext: false,
       })),
     );
 
@@ -160,10 +160,13 @@ export const GameBoard = () => {
                   isClickable: false,
                   isNext: false,
                 };
-              } else if (cell.number === expectedNumber + 1) {
-                return { ...cell, isNext: true };
               }
-              return { ...cell, isNext: false };
+              // Hide all numbers after first click
+              return {
+                ...cell,
+                isRevealed: expectedNumber > 1 ? false : cell.isRevealed,
+                isNext: false,
+              };
             }),
           );
 
@@ -294,8 +297,11 @@ export const GameBoard = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-game-primary to-game-accent mb-4">
-            Memory Dash 🧠
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-game-primary to-game-accent">
+              Memory Dash
+            </span>{" "}
+            🧠
           </h1>
           <p className="text-xl text-game-secondary max-w-2xl mx-auto">
             Memorize the sequence and click the numbers in order. Test your

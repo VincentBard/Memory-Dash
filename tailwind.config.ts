@@ -150,7 +150,7 @@ export default {
         "target-appear": "target-appear 0.3s ease-out",
         "target-hit": "target-hit 0.2s ease-out",
         "score-pop": "score-pop 0.3s ease-out",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 4s ease-in-out infinite",
       },
     },
   },

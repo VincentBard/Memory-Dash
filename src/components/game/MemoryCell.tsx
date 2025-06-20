@@ -54,10 +54,6 @@ export const MemoryCell = ({
           "bg-game-primary/20 border-game-primary text-white":
             isRevealed && clickState === "none",
 
-          // Next target highlighting
-          "bg-game-accent/30 border-game-accent animate-pulse-glow":
-            isNext && !isRevealed && clickState === "none",
-
           // Correct click
           "bg-game-success/30 border-game-success text-white animate-target-hit":
             clickState === "correct",
