@@ -62,6 +62,16 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        game: {
+          primary: "hsl(var(--game-primary))",
+          secondary: "hsl(var(--game-secondary))",
+          accent: "hsl(var(--game-accent))",
+          success: "hsl(var(--game-success))",
+          warning: "hsl(var(--game-warning))",
+          danger: "hsl(var(--game-danger))",
+          target: "hsl(var(--game-target))",
+          bg: "hsl(var(--game-bg))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -85,10 +95,62 @@ export default {
             height: "0",
           },
         },
+        "target-appear": {
+          "0%": {
+            transform: "scale(0) rotate(0deg)",
+            opacity: "0",
+          },
+          "50%": {
+            transform: "scale(1.1) rotate(180deg)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "scale(1) rotate(360deg)",
+            opacity: "1",
+          },
+        },
+        "target-hit": {
+          "0%": {
+            transform: "scale(1)",
+            opacity: "1",
+          },
+          "50%": {
+            transform: "scale(1.3)",
+            opacity: "0.8",
+          },
+          "100%": {
+            transform: "scale(0)",
+            opacity: "0",
+          },
+        },
+        "score-pop": {
+          "0%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.2)",
+          },
+          "100%": {
+            transform: "scale(1)",
+          },
+        },
+        "pulse-glow": {
+          "0%, 100%": {
+            boxShadow: "0 0 5px hsl(var(--game-accent))",
+          },
+          "50%": {
+            boxShadow:
+              "0 0 20px hsl(var(--game-accent)), 0 0 30px hsl(var(--game-accent))",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "target-appear": "target-appear 0.3s ease-out",
+        "target-hit": "target-hit 0.2s ease-out",
+        "score-pop": "score-pop 0.3s ease-out",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
     },
   },
