@@ -158,7 +158,10 @@ export const GameBoard = () => {
           // Check if game is complete
           if (newCurrentNumber > prev.totalNumbers) {
             completeGame();
-            return prev;
+            return {
+              ...prev,
+              currentNumber: newCurrentNumber,
+            };
           }
 
           return {
