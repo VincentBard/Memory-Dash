@@ -295,7 +295,11 @@ export const GameBoard = () => {
           <ScoreBoard
             score={stats.score}
             highScore={highScore}
-            currentNumber={stats.currentNumber - 1}
+            currentNumber={
+              stats.currentNumber > stats.totalNumbers
+                ? stats.totalNumbers
+                : stats.currentNumber - 1
+            }
             totalNumbers={stats.totalNumbers}
             timeElapsed={stats.timeElapsed}
             level={difficulty}
@@ -318,7 +322,7 @@ export const GameBoard = () => {
                 <Button
                   onClick={startGame}
                   size="lg"
-                  className="bg-gradient-to-r from-game-primary to-game-secondary hover:from-game-primary/80 hover:to-game-secondary/80 text-white font-bold px-12 py-6 text-xl rounded-xl transition-all duration-300 hover:scale-105 animate-pulse-glow"
+                  className="bg-gradient-to-r from-game-primary to-game-secondary hover:from-game-primary/80 hover:to-game-secondary/80 text-white font-bold px-12 py-6 text-xl rounded-xl transition-all duration-300 hover:scale-105 shadow-lg shadow-game-primary/30"
                 >
                   🚀 Start Game
                 </Button>
@@ -371,7 +375,8 @@ export const GameBoard = () => {
                 </div>
                 <div className="space-y-2">
                   <div className="text-3xl font-bold text-game-secondary">
-                    {stats.currentNumber - 1}/{stats.totalNumbers}
+                    {Math.min(stats.currentNumber - 1, stats.totalNumbers)}/
+                    {stats.totalNumbers}
                   </div>
                   <div className="text-sm text-game-primary">Completed</div>
                 </div>

@@ -80,28 +80,27 @@ export const DifficultySelector = ({
               "p-6 rounded-xl border-2 transition-all duration-300 hover:scale-105",
               "bg-gradient-to-br backdrop-blur-sm",
               {
-                "border-green-400 bg-green-500/20 text-green-100":
+                "border-green-400 border-4 bg-green-500/20 text-green-100 shadow-lg shadow-green-400/30":
                   config.color === "green" && selectedDifficulty === key,
                 "border-green-400/30 bg-green-500/10 text-green-200 hover:border-green-400/60":
                   config.color === "green" && selectedDifficulty !== key,
 
-                "border-yellow-400 bg-yellow-500/20 text-yellow-100":
+                "border-yellow-400 border-4 bg-yellow-500/20 text-yellow-100 shadow-lg shadow-yellow-400/30":
                   config.color === "yellow" && selectedDifficulty === key,
                 "border-yellow-400/30 bg-yellow-500/10 text-yellow-200 hover:border-yellow-400/60":
                   config.color === "yellow" && selectedDifficulty !== key,
 
-                "border-orange-400 bg-orange-500/20 text-orange-100":
+                "border-orange-400 border-4 bg-orange-500/20 text-orange-100 shadow-lg shadow-orange-400/30":
                   config.color === "orange" && selectedDifficulty === key,
                 "border-orange-400/30 bg-orange-500/10 text-orange-200 hover:border-orange-400/60":
                   config.color === "orange" && selectedDifficulty !== key,
 
-                "border-red-400 bg-red-500/20 text-red-100":
+                "border-red-400 border-4 bg-red-500/20 text-red-100 shadow-lg shadow-red-400/30":
                   config.color === "red" && selectedDifficulty === key,
                 "border-red-400/30 bg-red-500/10 text-red-200 hover:border-red-400/60":
                   config.color === "red" && selectedDifficulty !== key,
 
                 "opacity-50 cursor-not-allowed": disabled,
-                "animate-pulse-glow": selectedDifficulty === key && !disabled,
               },
             )}
           >
@@ -115,7 +114,6 @@ export const DifficultySelector = ({
                 <div>
                   Grid: {config.gridSize}×{config.gridSize}
                 </div>
-                <div>Show time: {config.showTime / 1000}s</div>
               </div>
             </div>
           </button>
