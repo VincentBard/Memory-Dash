@@ -375,7 +375,7 @@ export const GameBoard = () => {
               {gameState === "playing" && (
                 <div className="text-center mt-6">
                   <div className="text-game-accent text-lg font-bold">
-                    🎯 Click number: {stats.currentNumber}
+                    🎯 Click the numbers in order (1, 2, 3...)
                   </div>
                 </div>
               )}
