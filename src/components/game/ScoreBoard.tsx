@@ -99,14 +99,14 @@ export const ScoreBoard = ({
           </div>
 
           <div className="text-right">
-            {isPlaying && !isShowingSequence && (
-              <div className="text-game-accent font-medium">
-                Next: {currentNumber + 1}
-              </div>
-            )}
             {isShowingSequence && (
               <div className="text-game-warning font-medium">
                 📝 Study the sequence!
+              </div>
+            )}
+            {isPlaying && !isShowingSequence && (
+              <div className="text-game-accent font-medium">
+                🎯 Click in order!
               </div>
             )}
           </div>
